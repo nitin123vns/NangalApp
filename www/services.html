@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style type="text/css">
+        body {
+            font-family: Arial;
+            font-size: 10pt;
+        }
+    </style>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+   
+
+    <script src="js/jquery-3.3.1.js"></script>
+    <script type="text/javascript">
+            
+            $(document).ready(function () {
+               
+                document.getElementById('player-name').innerHTML =sessionStorage.getItem('Userid');
+                
+               
+
+            });
+        </script>
+    
+<script type="text/javascript">
+     $(document).ready(function () {
+         var msgs=sessionStorage.getItem('Id');
+           jQuery.ajax({
+               url: "http://66.199.242.90/sgm_android/WebService.asmx/GetFacilityUserSites?FUserId="+msgs+"",
+               dataType: 'json',
+               success: function (response) {
+                   //debugger;
+                   var res=response;
+                   for(var i=0; i<res.length;i++){
+                       var inc=i;
+                       $("#drp1").append($("<option></option>").val(res[inc].site_id).html(res[inc].site_code +' - '+ res[inc].site_name)); 
+                   }
+                         
+           
+
+               },
+               errror: function(response){
+                   alert('fail to send');
+               }
+
+           });
+       });
+    </script>
+    
+
+ 
+      
+
+<script type = "text/javascript">
+    var xList=[];
+    var resSuccess;
+       $(document).ready(function () {
+           var listChkbox=[];
+           jQuery.ajax({
+              
+               url: "http://66.199.242.90/sgm_android/WebService.asmx/getHeadingData",
+               dataType: 'json',
+               success: function (response) {
+                   //debugger;
+                   var xmlDoc = response;
+                   //var sName = xmlDoc[i].Name;
+                   //debugger;
+                   for (var i = 0; i < xmlDoc.length; i++) {
+                        var count=i;
+                       jQuery.ajax({
+                           url: "http://66.199.242.90/sgm_android/WebService.asmx/GetCheckBoxDetails?serviceID=" + xmlDoc[i].ID,
+
+                           dataType: 'json',
+                           success: function (res) {
+                               //debugger;
+                               var xmlDoc2 = res;
+                               var counter = 0;
+   
+                               jQuery('<tr><td>' + xmlDoc2[0].sName + '</td></tr>').appendTo("#grid");
+                               for (var j = 0; j < xmlDoc2.length; j++) {
+                                   xList.push(xmlDoc2[j].ID);
+                                   jQuery("<tr><td><input name='chklistitem' type='checkbox' id=" + xmlDoc2[j].ID + ">" + xmlDoc2[j].Name + "</input></td></tr>").appendTo("#grid");
+                               }
+                               //debugger;
+                               var sendList=listChkbox;
+                               jQuery("<tr><td><input name='submit' type='submit' id=" + count + " onclick='submiR(this.id,"+sendList+")'>  </input></td></tr>").appendTo("#grid");
+
+
+
+                           },
+
+                       });
+                       //jQuery('<tr><td>' + xmlDoc[i].Name + '</td></tr>').appendTo("#grid");
+                   }
+
+
+               },
+
+           });
+       });
+    
+//    function getList(xID)
+//    {
+//        var cID=xID;
+//        
+//        xList.push(cID);
+//        return xList;
+//    }
+    </script>
+    
+<!--
+    <script>
+    
+    $(document).ready(function () {
+         
+           jQuery.ajax({
+               url: "http://66.199.242.90/sgm_android/WebService.asmx/InsUpDGlog?SiteID=383&ChkPointsId=1",
+               dataType: 'json',
+               success: function (response) {
+                   
+                        alert("Data Saved")
+               },
+               errror: function(response){
+                   alert('fail to send');
+               }
+
+           });
+       });
+    </script>
+-->
+    <script>
+    function submiR(c,l=[]){
+        
+        debugger;
+//        var x=l;
+        var siteID=document.getElementById('drp1').value;
+       resSuccess=2;
+        for(var j=0; j<xList.length;j++){
+            var chkID=document.getElementById(xList[j]);
+            if(chkID.checked){
+                   //alert(xList[j])
+                   callMe(siteID,xList[j]);
+                
+            }
+         
+        }
+         if(resSuccess=1)
+                    alert("Data Saved");
+                else
+                    alert("Failed")  
+    }
+    function callMe(s,l){
+      var u_id=sessionStorage.getItem('Id');
+        jQuery.ajax({
+               url: "http://66.199.242.90/sgm_android/WebService.asmx/InsUpDGlog?SiteID="+s+"&ChkPointsId="+l+"&fuserid="+u_id,
+               dataType: 'json',
+               success: function (response) {
+                   resSuccess=1;
+                        
+               },
+               errror: function(response){
+                  resSuccess=0;
+               }
+
+           });
+    }
+    </script>
+</head>
+<body>
+    <br>
+     <div align="center"> WELCOME:-<span style="font-size:15px;cursor:pointer"id="player-name"></span></div>
+    <br>
+    <select id = "drp1" >
+    
+</select>
+    <table  style="width:100%" border="0" id="grid"></table>
+        
+
+  
+</body>
+</html>

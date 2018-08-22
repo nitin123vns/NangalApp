@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<!--[if IE 8]>			<html class="ie ie8"> <![endif]-->
+<!--[if IE 9]>			<html class="ie ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->	<html> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8" />
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+        <title>APS</title>
+        <meta name="keywords" content="HTML5,CSS3,Template" />
+        <meta name="description" content="" />
+        <meta name="Author" content="hemant.me" />
+
+        <!-- mobile settings -->
+        <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
+        <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+
+        <!-- WEB FONTS : use %7C instead of | (pipe) -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400%7CRaleway:300,400,500,600,700%7CLato:300,400,400italic,600,700" rel="stylesheet" type="text/css" />
+
+        <!-- CORE CSS -->
+        <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+        <!-- THEME CSS -->
+        <link href="assets/css/essentials.css" rel="stylesheet" type="text/css" />
+        <link href="assets/css/layout.css" rel="stylesheet" type="text/css" />
+
+        <!-- PAGE LEVEL SCRIPTS -->
+        <link href="assets/css/header-1.css" rel="stylesheet" type="text/css" />
+        <link href="assets/css/color_scheme/red.css" rel="stylesheet" type="text/css" id="color_scheme" />
+
+        <style>
+           
+            .login-box{
+                margin-top: 60px;
+
+            }
+            .loader{
+                display: block;
+                height: 100%;
+                width: 100%;
+                position: fixed;
+                z-index: 9999;
+                background: #fff;
+                left: 0px;
+                top: 0px;
+                overflow: hidden;
+            }
+            .loader img{
+                height: 140px;
+                margin-left: auto;
+                margin-right: auto;
+                display: block;
+                margin-top: 200px;
+            }
+            .login{
+                height: 0px;
+                padding: 20px;
+                background: #fff;
+                border-radius: 5px;
+                overflow: hidden;
+                opacity: 0;
+                margin-top: 40px;
+                box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.4);
+
+                transition: all .5s;
+
+            }
+        </style>
+        <script type = "text/javascript">
+            function getlogin() {
+                var input_username = $("#Username").val();
+                var input_password = $("#pass").val();
+                //location coordinates,imei(To do),GPS turn on,logoff,
+                jQuery.ajax({
+                    url: "http://66.199.242.90/sgm_android/webservice.asmx/facilityuserlogin?user_id=" + input_username + "&pwd=" + input_password + "&imei=866945035584498",
+                    dataType: 'json',
+                    success: function (results) {
+                        var Userid = results[0].User_ID;
+                        var password = results[0].name;
+                        if (input_username == Userid && input_password == password) {
+                            var user_type = results[0].user_type;
+                            var id = results[0].id;
+                            sessionStorage.setItem("Userid", Userid);
+                            sessionStorage.setItem("user_type", user_type);
+                            sessionStorage.setItem("Id", id);
+                            window.location.href = "about.html";
+                        }
+                        else {
+                            alert("Incorrect login Credentials");
+                        }
+
+                    }
+                });
+            }
+
+
+   </script>
+    </head>
+
+
+    <body  onload="anishow()">
+
+
+<div class="loader" id="loader">
+                        <img src="assets/images/splash.png" >
+                    </div>
+                    
+                    
+                    
+                    
+
+        <div class=" container">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4 col-xs-10 col-xs-offset-1 login-box">
+                    
+                    <form>
+                        <div class="login" id="login">
+                            <img src="assets/images/logo.png" style="display: block;  margin-left: auto; margin-right: auto;">
+                            <br>
+                            <span><strong>Enter Credential</strong></span>
+                            <br>
+                            <br>
+                            <div class="fancy-form"><!-- input -->
+                                <i class="fa fa-key"></i>
+
+                                <input id="Username" type="text" class="form-control" placeholder="Enter User Name">
+
+
+                            </div>
+                            <br>
+                            <div class="fancy-form"><!-- input -->
+                                <i class="fa fa-user"></i>
+
+                                <input id ="pass" type="password" class="form-control" placeholder="Enter Password">
+
+
+                            </div>
+                            <br>
+                            <input type="button" class="btn btn-3d btn-reveal btn-red" style="width: 100%;" onclick="getlogin()" value="login" />
+                            <!--<a href="about.html" class="btn btn-3d btn-reveal btn-red" style="width: 100%;">
+                                <i class="fa fa-sign-in"></i>
+                                <span>Login</span>
+                            </a>-->
+                            <br>
+                            
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-4 col-md-offset-4 col-xs-10 col-xs-offset-1" style="text-align: center; color: #cdcdcd;">
+                 &copy; All Rights Reserved, APS Group
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+        
+
+
+
+
+
+
+        <script type="text/javascript">
+            var x = document.getElementById("loader");
+            var y = document.getElementById("login");
+
+            function anishow(){
+                setTimeout(function(){ x.style.display = "none"; }, 5000);
+                setTimeout(function(){ y.style.height = "380px"; }, 5000);
+                setTimeout(function(){ y.style.opacity = "1"; }, 5000);
+            };
+
+        </script>
+        <!-- JAVASCRIPT FILES -->
+        <script type="text/javascript">var plugin_path = 'assets/plugins/';</script>
+        <script type="text/javascript" src="assets/plugins/jquery/jquery-2.2.3.min.js"></script>
+
+        <script type="text/javascript" src="assets/js/scripts.js"></script>
+
+
+
+
+    </body>
+</html>

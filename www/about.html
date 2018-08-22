@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <style>
+
+            .panel-title a {
+                text-decoration: none !important;
+                font-size: 14px !important;
+                font-weight: 600 !important;
+            }
+            .panel-title a:hover {
+                color: #1188cc;
+            }
+            .middle{
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            body {
+                font-family: "Lato", sans-serif;
+            }
+
+            .sidenav {
+                height: 100%;
+                width: 0;
+                position: fixed;
+                z-index: 1;
+                top: 0;
+                left: 0;
+                background-color: #ccc;
+                overflow-x: hidden;
+                transition: 0.5s;
+                padding-top: 60px;
+            }
+
+            .sidenav a {
+                padding: 8px 8px 8px 32px;
+                text-decoration: none;
+                font-size: 25px;
+                color: #818181;
+                display: block;
+                transition: 0.3s;
+                
+                border-bottom: 1px solid #888;
+                border-top: 1px solid #eee;
+            }
+
+            .sidenav a:hover {
+                color: #333;
+                background-color: #bbb;
+            }
+
+            .sidenav .closebtn {
+                position: absolute;
+                top: 0;
+                right: 25px;
+                font-size: 36px;
+                margin-left: 50px;
+            }
+
+            @media screen and (max-height: 450px) {
+                .sidenav {padding-top: 15px;}
+                .sidenav a {font-size: 18px;}
+            }
+.topnav {
+  overflow: hidden;
+  background-color: #ededed;
+}
+            .box{
+                height: 60%;
+                width: 60%;
+                margin-left: auto;
+                margin-right: auto;
+                background-color: #eee;
+                
+                box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.4);
+                padding: 20px;
+                border-radius: 10px;
+                text-align: center;
+                margin-top: 80px;
+                
+            }
+
+        </style>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var msg = sessionStorage.getItem('user_type');
+                var msgs=sessionStorage.getItem('Id');
+                
+                document.getElementById('player-name').innerHTML =sessionStorage.getItem('Userid');
+                
+
+            });
+        </script>
+    </head>
+    <body>
+      
+<div class="topnav">
+<div class="container">
+ <div id="mySidenav" class="sidenav pull-left">
+            <a style="border: none !important; background: none !important;" href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+     <div style="text-align:center"> WELCOME:-<span style="font-size:15px;cursor:pointer"id="player-name"></span></div>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+           
+            <a href="#">Logout</a>
+        </div>
+
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+  </div>
+  
+</div>
+
+        <br><br>
+
+
+
+
+        <div class="box">
+            <h1>Welcome to APS Group</h1>
+            <strong> You are using APS App</strong>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        <script>
+            function openNav() {
+                document.getElementById("mySidenav").style.width = "250px";
+            }
+
+            function closeNav() {
+                document.getElementById("mySidenav").style.width = "0";
+            }
+        </script>
+
+
+    </body>
+</html>
