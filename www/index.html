@@ -66,12 +66,13 @@
 
             }
         </style>
-        <script type = "text/javascript">
+       <script type = "text/javascript">
             function getlogin() {
                 alert('call');
                 var input_username = $("#Username").val();
                 var input_password = $("#pass").val();
                 //location coordinates,imei(To do),GPS turn on,logoff,
+                alert('call2');
                 jQuery.ajax({
                     url: "http://66.199.242.90/sgm_android/webservice.asmx/facilityuserlogin?user_id=" + input_username + "&pwd=" + input_password + "&imei=866945035584498",
                     dataType: 'json',
@@ -79,12 +80,15 @@
                         var Userid = results[0].User_ID;
                         var password = results[0].name;
                         if (input_username == Userid && input_password == password) {
+                            alert('call3');
                             var user_type = results[0].user_type;
                             var id = results[0].id;
                             sessionStorage.setItem("Userid", Userid);
                             sessionStorage.setItem("user_type", user_type);
                             sessionStorage.setItem("Id", id);
+                            alert('call4');
                             window.location.href = "about.html";
+                            
                         }
                         else {
                             alert("Incorrect login Credentials");
